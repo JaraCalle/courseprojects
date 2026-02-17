@@ -16,28 +16,28 @@ import { RouterLink, RouterView } from 'vue-router';
           </div>
 
           <nav class="space-y-2">
-            <RouterLink
-              to="/"
-              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200"
-            >
+            <RouterLink to="/" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200">
               <i class="fas fa-home mr-3"></i>
 
               <span>Home</span>
             </RouterLink>
 
-            <RouterLink
-              to="/about"
-              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200"
-            >
+            <RouterLink to="/about"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200">
               <i class="fas fa-info-circle mr-3"></i>
 
               <span>About</span>
             </RouterLink>
 
-            <RouterLink
-              to="/contact"
-              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200"
-            >
+            <RouterLink to="/books"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200">
+              <i class="fas fa-book mr-3"></i>
+
+              <span>Books</span>
+            </RouterLink>
+
+            <RouterLink to="/contact"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition duration-200">
               <i class="fas fa-info-circle mr-3"></i>
 
               <span>Contact</span>
@@ -74,15 +74,12 @@ import { RouterLink, RouterView } from 'vue-router';
             </div>
 
             <div class="flex items-center space-x-4">
-              <button
-                class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition duration-200"
-              >
+              <button class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition duration-200">
                 <i class="fas fa-search"></i>
               </button>
 
               <div
-                class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center cursor-pointer hover:bg-blue-600 transition duration-200"
-              >
+                class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center cursor-pointer hover:bg-blue-600 transition duration-200">
                 <i class="fas fa-user text-white"></i>
               </div>
             </div>

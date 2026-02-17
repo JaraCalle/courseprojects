@@ -15,5 +15,12 @@ export class BookService {
     const id = useBookStore().books.length + 1;
     useBookStore().books.push({ id, ...book });
   }
+
+  static deleteLastBook(): void {
+    const store = useBookStore();
+    if (store.books.length > 0) {
+      store.books.pop();
+    }
+  }
 }
 

@@ -3,6 +3,10 @@
 import { BookService } from '@/sevices/BookService'
 
 const books = BookService.getBooks();
+
+function deleteLast() {
+  BookService.deleteLastBook();
+}
 </script>
 
 <template>
@@ -12,6 +16,12 @@ const books = BookService.getBooks();
         <RouterLink to="/books/create"
           class="inline-block bg-blue-600 text-white font-semibold px-5 py-2 rounded hover:bg-blue-700 transition">+
           Add Book</RouterLink>
+      </div>
+
+      <div class="flex justify-end mb-6">
+        <button @click="deleteLast"
+          class="inline-block bg-red-600 text-white font-semibold px-5 py-2 rounded hover:bg-blue-700 transition">+
+          Delete Last Book</button>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div v-for="book in books" :key="book.id">

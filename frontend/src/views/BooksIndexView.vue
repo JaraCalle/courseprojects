@@ -1,12 +1,40 @@
 <script setup lang="ts">
 
+import { ref, watch } from 'vue';
+
 import { BookService } from '@/sevices/BookService'
+import OtherService from "@/sevices/OtherService"
 
 const books = BookService.getBooks();
+const filteredBooks = ref(books)
+
+// selectors
+const selectorCategories = OtherService.getUniqueBookCategories();
+const selectedCategory = ref('');
+
+// Functions
+function formatToCOP(price: number): string {
+  const formatter = new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
+  return formatter.format(price).replace(/^\s*\$\s?/, '');
+}
 
 function deleteLast() {
   BookService.deleteLastBook();
 }
+
+// watchers
+watch(selectedCategory, (newCategory) => {
+  if (newCategory) {
+    filteredBooks.value = books.filter((book) => book.category === newCategory);
+  } else {
+    filteredBooks.value = books;
+  }
+})
 </script>
 
 <template>
@@ -17,14 +45,22 @@ function deleteLast() {
           class="inline-block bg-blue-600 text-white font-semibold px-5 py-2 rounded hover:bg-blue-700 transition">+
           Add Book</RouterLink>
       </div>
-
+      <div class="flex justify-end mb-6">
+        <select v-model="selectedCategory" class="w-full border border-gray-300 rounded py-2 px-3
+focus:outline-none focus:ring focus:border-blue-300">
+          <option value="">All Categories</option>
+          <option v-for="category in selectorCategories" :key="category" :value="category">
+            {{ category }}
+          </option>
+        </select>
+      </div>
       <div class="flex justify-end mb-6">
         <button @click="deleteLast"
           class="inline-block bg-red-600 text-white font-semibold px-5 py-2 rounded hover:bg-blue-700 transition">+
           Delete Last Book</button>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div v-for="book in books" :key="book.id">
+        <div v-for="book in filteredBooks" :key="book.id">
           <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 p-6 border border-gray-200">
             <div class="flex justify-between items-center mb-2">
               <h3 class="text-xl font-semibold text-gray-800">
@@ -48,7 +84,7 @@ function deleteLast() {
             <div class="bg-gray-50 rounded-lg p-3 mb-4">
               <div class="flex justify-between text-sm">
                 <span class="text-gray-600">Price:</span>
-                <span class="font-semibold">${{ book.price }}</span>
+                <span class="font-semibold">${{ formatToCOP(book.price) }} COP</span>
               </div>
             </div>
             <div class="flex justify-center">
